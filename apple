@@ -1,0 +1,379 @@
+local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
+
+local Window = Rayfield:CreateWindow({
+   Name = "Roblox Apple hack hub      by sst,SHD",
+   LoadingTitle = "ROBLOX Apple hub",
+   LoadingSubtitle = "by SHD,sst",
+   ConfigurationSaving = {
+      Enabled = false,
+      FolderName = nil, -- Create a custom folder for your hub/game
+      FileName = "Example Hub"
+   },
+   Discord = {
+      Enabled = false,
+      Invite = "noinvitelink", -- The Discord invite code, do not include discord.gg/. E.g. discord.gg/ABCD would be ABCD
+      RememberJoins = true -- Set this to false to make them join the discord every time they load it up
+   },
+   KeySystem = true, -- Set this to true to use our key system
+   KeySettings = {
+      Title = "Key | Youtube Hub",
+      Subtitle = "Key System",
+      Note = "Key In Discord Server",
+      FileName = "YoutubeHubKey1", -- It is recommended to use something unique as other scripts using Rayfield may overwrite your key file
+      SaveKey = true, -- The user's key will be saved, but if you change the key, they will be unable to use your script
+      GrabKeyFromSite = true, -- If this is true, set Key below to the RAW site you would like Rayfield to get the key from
+      Key = {"Apple"} -- List of keys that will be accepted by the system, can be RAW file links (pastebin, github etc) or simple strings ("hello","key22")
+   }
+})
+
+local MainTab = Window:CreateTab("🏠 Home", nil) -- Title, Image
+local MainSection = MainTab:CreateSection("Main")
+
+Rayfield:Notify({
+   Title = "You executed the script",
+   Content = "Very cool gui",
+   Duration = 5,
+   Image = 13047715178,
+   Actions = { -- Notification Buttons
+      Ignore = {
+         Name = "Okay!",
+         Callback = function()
+         print("The user tapped Okay!")
+      end
+   },
+},
+})
+
+local Button = MainTab:CreateButton({
+   Name = "Infinite Jump Toggle",
+   Callback = function()
+       --Toggles the infinite jump between on or off on every script run
+_G.infinjump = not _G.infinjump
+
+if _G.infinJumpStarted == nil then
+	--Ensures this only runs once to save resources
+	_G.infinJumpStarted = true
+	
+	--Notifies readiness
+	game.StarterGui:SetCore("SendNotification", {Title="okay"; Text="Infinite Jump Activated!"; Duration=5;})
+
+	--The actual infinite jump
+	local plr = game:GetService('Players').LocalPlayer
+	local m = plr:GetMouse()
+	m.KeyDown:connect(function(k)
+		if _G.infinjump then
+			if k:byte() == 32 then
+			humanoid = game:GetService'Players'.LocalPlayer.Character:FindFirstChildOfClass('Humanoid')
+			humanoid:ChangeState('Jumping')
+			wait()
+			humanoid:ChangeState('Seated')
+			end
+		end
+	end)
+end
+   end,
+})
+
+local Slider = MainTab:CreateSlider({
+   Name = "WalkSpeed Slider",
+   Range = {1, 350},
+   Increment = 1,
+   Suffix = "Speed",
+   CurrentValue = 16,
+   Flag = "sliderws", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+   Callback = function(Value)
+        game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = (Value)
+   end,
+})
+
+local Slider = MainTab:CreateSlider({
+   Name = "JumpPower Slider",
+   Range = {1, 350}, 
+   Increment = 1,
+   Suffix = "Power",
+   CurrentValue = 50, 
+   Flag = "sliderjp", 
+   Callback = function(Value)
+        game.Players.LocalPlayer.Character.Humanoid.JumpPower = Value
+   end
+})
+
+local noclipEnabled = false
+
+local Button = MainTab:CreateButton({
+   Name = "Toggle Noclip",
+   Flag = "noclipbtn",
+   Callback = function()
+       noclipEnabled = not noclipEnabled -- 토글 기능
+       if noclipEnabled then
+           game:GetService("RunService").Stepped:Connect(function()
+               if game.Players.LocalPlayer.Character then
+                   for _, part in pairs(game.Players.LocalPlayer.Character:GetDescendants()) do
+                       if part:IsA("BasePart") and part.CanCollide then
+                           part.CanCollide = false
+                       end
+                   end
+               end
+           end)
+       else
+           -- Noclip 비활성화 시 충돌 다시 활성화
+           if game.Players.LocalPlayer.Character then
+               for _, part in pairs(game.Players.LocalPlayer.Character:GetDescendants()) do
+                   if part:IsA("BasePart") then
+                       part.CanCollide = true
+                   end
+               end
+           end
+       end
+   end
+})
+
+local Button = MainTab:CreateButton({
+        Name = "Admin",
+        Callback = function()
+            loadstring(game:HttpGet("https://rawscripts.net/raw/Infinite-Yield_500"))()
+        end,
+})
+
+local Button = MainTab:CreateButton({
+        Name = "Unc test",
+        Callback = function()
+            loadstring(game:HttpGet("https://github.com/ltseverydayyou/uuuuuuu/blob/main/UNC%20test?raw=true"))()
+        end,
+})
+
+local Button = MainTab:CreateButton({
+        Name = "Invisible",
+        Callback = function()
+            --[[
+A distribution of https://wearedevs.net/scripts
+Last updated August 2, 2021
+
+Description: Makes all of your body parts invisible. Only you can see this effect.
+
+Instruction: Inject this script into any game using a Lua executor like JJSploit. 
+
+I wrote this while off the boof and realized at the end that I'm a goof for not 
+simply looping through for BaseParts... 
+]]
+
+character = game:GetService("Players").LocalPlayer.Character
+
+character.Head.Transparency = 1
+
+--R6 Rigs
+torso = character:FindFirstChild("Torso")
+if torso then torso.Transparency = 1 end
+
+leftArm = character:FindFirstChild("Left Arm")
+if leftArm then leftArm.Transparency = 1 end
+rightArm = character:FindFirstChild("Right Arm")
+if rightArm then rightArm.Transparency = 1 end
+
+leftLeg = character:FindFirstChild("Left Leg")
+if leftLeg then leftLeg.Transparency = 1 end
+rightLeg = character:FindFirstChild("Right Leg")
+if rightLeg then rightLeg.Transparency = 1 end
+
+--R15 Rigs
+upperTorso = character:FindFirstChild("UpperTorso")
+if upperTorso then upperTorso.Transparency = 1 end
+lowerTorso = character:FindFirstChild("LowerTorso")
+if lowerTorso then lowerTorso.Transparency = 1 end
+
+leftUpperArm = character:FindFirstChild("LeftUpperArm")
+if leftUpperArm then leftUpperArm.Transparency = 1 end
+leftLowerArm = character:FindFirstChild("LeftLowerArm")
+if leftLowerArm then leftLowerArm.Transparency = 1 end
+leftFoot = character:FindFirstChild("LeftFoot")
+if leftFoot then leftFoot.Transparency = 1 end
+rightUpperArm = character:FindFirstChild("RightUpperArm")
+if rightUpperArm then rightUpperArm.Transparency = 1 end
+rightLowerArm = character:FindFirstChild("RightLowerArm")
+if rightLowerArm then rightLowerArm.Transparency = 1 end
+rightFoot = character:FindFirstChild("RightFoot")
+if rightFoot then rightFoot.Transparency = 1 end
+
+leftUpperLeg = character:FindFirstChild("LeftUpperLeg")
+if leftUpperLeg then leftUpperLeg.Transparency = 1 end
+leftLowerLeg = character:FindFirstChild("LeftLowerLeg")
+if leftLowerLeg then leftLowerLeg.Transparency = 1 end
+leftFoot = character:FindFirstChild("LeftFoot")
+if leftFoot then leftFoot.Transparency = 1 end
+rightUpperLeg = character:FindFirstChild("RightUpperLeg")
+if rightUpperLeg then rightUpperLeg.Transparency = 1 end
+rightLowerLeg = character:FindFirstChild("RightLowerLeg")
+if rightLowerLeg then rightLowerLeg.Transparency = 1 end
+rightFoot = character:FindFirstChild("RightFoot")
+if rightFoot then rightFoot.Transparency = 1 end
+        end,
+})
+
+local Button = MainTab:CreateButton({
+        Name = "Btools",
+        Callback = function()
+            --[[
+A distribution of https://wearedevs.net/scripts
+Last updated August 2, 2021
+
+Description: Gives your player the old system of building tools
+
+Instruction: Inject this script into any game using a Lua executor like JJSploit. 
+]]
+
+backpack = game:GetService("Players").LocalPlayer.Backpack
+
+hammer = Instance.new("HopperBin")
+hammer.Name = "Hammer"
+hammer.BinType = 4
+hammer.Parent = backpack
+
+cloneTool = Instance.new("HopperBin")
+cloneTool.Name = "Clone"
+cloneTool.BinType = 3
+cloneTool.Parent = backpack
+
+grabTool = Instance.new("HopperBin")
+grabTool.Name = "Grab"
+grabTool.BinType = 2
+grabTool.Parent = backpack
+        end,
+})
+
+local Button = MainTab:CreateButton({
+        Name = "click tp",
+        Callback = function()
+            mouse = game.Players.LocalPlayer:GetMouse()
+tool = Instance.new("Tool")
+tool.RequiresHandle = false
+tool.Name = "Click Teleport"
+tool.Activated:connect(function()
+local pos = mouse.Hit+Vector3.new(0,2.5,0)
+pos = CFrame.new(pos.X,pos.Y,pos.Z)
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = pos
+end)
+tool.Parent = game.Players.LocalPlayer.Backpack
+        end,
+})
+
+local Button = MainTab:CreateButton({
+        Name = "Esp",
+        Callback = function()
+            --// Roblox ESP Script
+local ESP = {}
+
+-- ESP 설정값
+ESP.TeamCheck = false -- 같은 팀 구별 여부
+ESP.Color = Color3.fromRGB(255, 0, 0) -- ESP 색상 (빨간색)
+ESP.Thickness = 2 -- 선 굵기
+
+-- 플레어 ESP 생성
+function ESP:CreateESP(Player)
+    if Player == game.Players.LocalPlayer then return end -- 자기 자신 제외
+
+    local Highlight = Instance.new("Highlight")
+    Highlight.Parent = game.CoreGui
+    Highlight.Adornee = Player.Character
+    Highlight.FillColor = ESP.Color
+    Highlight.DepthMode = Enum.HighlightDepthMode.AlwaysOnTop
+
+    -- 플레이어가 나가면 제거
+    Player.CharacterRemoving:Connect(function()
+        Highlight:Destroy()
+    end)
+end
+
+-- 모든 플레이어에 대해 ESP 적용
+function ESP:ApplyESP()
+    for _, Player in pairs(game.Players:GetPlayers()) do
+        if Player.Character then
+            ESP:CreateESP(Player)
+        end
+    end
+end
+
+-- 새로운 플레이어가 들어올 때 ESP 적용
+game.Players.PlayerAdded:Connect(function(Player)
+    Player.CharacterAdded:Connect(function()
+        wait(1)
+        ESP:CreateESP(Player)
+    end)
+end)
+
+-- 초기 실행
+ESP:ApplyESP()
+
+        end,
+})  
+
+local TPTab = Window:CreateTab("Game script", nil) -- Title, Image
+
+local Button = TPTab:CreateButton({
+   Name = "lucky block",
+   Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/n0raxd/lucky-block-stuff/refs/heads/main/this-shit-so-old.lua",true))()
+   end,
+})
+
+local Button = TPTab:CreateButton({
+   Name = "PrizzLife",
+   Callback = function()
+        loadstring(game:HttpGet('https://raw.githubusercontent.com/elliexmln/PrizzLife/main/pladmin.lua'))() 
+   end,
+})
+
+local Button = TPTab:CreateButton({
+   Name = "TSB",
+   Callback = function()
+       loadstring(game:HttpGet("https://raw.githubusercontent.com/AhmadV99/Speed-Hub-X/main/Speed%20Hub%20X.lua", true))()
+   end,
+})
+
+local Button = TPTab:CreateButton({
+   Name = "TSB-Black-figure",
+   Callback = function()
+       loadstring(game:HttpGet("https://rawscripts.net/raw/KJ-The-Strongest-Battlegrounds-Tsb-Black-figure-script-29544"))()
+   end,
+})
+
+local Button = TPTab:CreateButton({
+   Name = "Rival",
+   Callback = function()
+       loadstring(game:HttpGet("https://raw.githubusercontent.com/surfplexxV4/pre-alpha/refs/heads/main/rivalsv2.2"))()
+   end,
+})
+
+local Button = TPTab:CreateButton({
+   Name = "BloxFruits",
+   Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/realredz/BloxFruits/refs/heads/main/Source.lua"))(Settings)
+   end,
+})
+
+local Button = TPTab:CreateButton({
+   Name = "Verse Piece",
+   Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/meobeo8/elgato/a/Loader"))()
+   end,
+})
+
+local Button = TPTab:CreateButton({
+   Name = "Rock fruit",
+   Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/Omgshit/Scripts/main/MainLoader.lua"))()
+   end,
+})
+
+local Button = TPTab:CreateButton({
+   Name = "Slap_Battle",
+   Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/Giangplay/Slap_Battles/main/Slap_Battles.lua"))()
+   end,
+})
+
+local Button = TPTab:CreateButton({
+   Name = "Dex",
+   Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/dyyll/Dex-V5-leak/refs/heads/main/Dex%20V5.lua"))()
+   end,
+})
